@@ -215,6 +215,116 @@
             margin-bottom: 10px;
         }
 
+        /* Слот-машина */
+        .slot-section {
+            padding: 60px 5%;
+            background: linear-gradient(135deg, #fff 0%, #f8f8ff 100%);
+            text-align: center;
+        }
+
+        .slot-machine {
+            max-width: 500px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 15px 40px rgba(108, 99, 255, 0.2);
+            border: 3px solid var(--primary);
+        }
+
+        .slot-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .slot-reels {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 25px 0;
+            background: var(--light);
+            padding: 20px;
+            border-radius: 15px;
+            min-height: 80px;
+        }
+
+        .reel {
+            width: 70px;
+            height: 70px;
+            background: var(--white);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
+            border: 2px solid var(--accent);
+            transition: transform 0.1s;
+        }
+
+        .reel.spinning {
+            animation: spin 0.1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: translateY(-10px); }
+            50% { transform: translateY(10px); }
+            100% { transform: translateY(-10px); }
+        }
+
+        .slot-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 6px 0 #5a52d6;
+        }
+
+        .slot-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 9px 0 #5a52d6;
+        }
+
+        .slot-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slot-result {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            display: none;
+            animation: popIn 0.4s ease;
+        }
+
+        .slot-result.show {
+            display: block;
+            background: linear-gradient(135deg, var(--accent), #FFC107);
+            color: var(--dark);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .slot-note {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 15px;
+            font-style: italic;
+        }
+
         .contact {
             padding: 100px 5%;
             text-align: center;
@@ -288,6 +398,15 @@
             .hero-text, .about p {
                 max-width: 100%;
             }
+
+            .slot-reels {
+                gap: 5px;
+            }
+            .reel {
+                width: 55px;
+                height: 55px;
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
@@ -355,6 +474,21 @@
         </div>
     </section>
 
+    <!-- Слот-машина -->
+    <section class="slot-section">
+        <div class="slot-machine">
+            <h3 class="slot-title">🎰 Испытай удачу! Выиграй бонус</h3>
+            <div class="slot-reels">
+                <div class="reel" id="reel1">❓</div>
+                <div class="reel" id="reel2">❓</div>
+                <div class="reel" id="reel3">❓</div>
+            </div>
+            <button class="slot-btn" id="spinBtn" onclick="spinSlot()">Крутить!</button>
+            <div class="slot-result" id="slotResult"></div>
+            <p class="slot-note">* Можно сыграть только один раз. Вы всегда выигрываете! 🎁</p>
+        </div>
+    </section>
+
     <section id="contact" class="contact">
         <h2>Готовы начать?</h2>
         <p>Первый пробный урок (30 минут) — бесплатно!</p>
@@ -369,6 +503,75 @@
     <footer>
         <p>© 2023 EnglishFun Tutor. All rights reserved.</p>
     </footer>
+
+    <script>
+        // Призы с emoji-символами
+        const prizes = [
+            { emoji: '💰', text: 'Скидка на первый месяц 10%' },
+            { emoji: '🎁', text: 'Бесплатный урок' },
+            { emoji: '📚', text: 'Полезная ПДФка' },
+            { emoji: '🎓', text: 'Скидка на курс 10%' },
+            { emoji: '🚗', text: 'ААААААВТОМОБИЛЬ' }
+        ];
+
+        const reelEmojis = ['🎉', '⭐', '🍀', '🎯', '🔥', '💎', '🌟', '🏆'];
+        let hasPlayed = false;
+
+        function spinSlot() {
+            if (hasPlayed) return;
+            hasPlayed = true;
+
+            const btn = document.getElementById('spinBtn');
+            const reels = [
+                document.getElementById('reel1'),
+                document.getElementById('reel2'),
+                document.getElementById('reel3')
+            ];
+            const resultDiv = document.getElementById('slotResult');
+
+            // Блокируем кнопку
+            btn.disabled = true;
+            btn.textContent = 'Крутим...';
+
+            // Добавляем анимацию вращения
+            reels.forEach(reel => reel.classList.add('spinning'));
+
+            // Случайный приз (всегда победа)
+            const winningPrize = prizes[Math.floor(Math.random() * prizes.length)];
+
+            // Эффект постепенной остановки барабанов
+            let stopCount = 0;
+            const stopReel = (index, finalEmoji) => {
+                setTimeout(() => {
+                    reels[index].classList.remove('spinning');
+                    reels[index].textContent = finalEmoji;
+                    stopCount++;
+                    
+                    // Когда все остановились — показываем результат
+                    if (stopCount === 3) {
+                        resultDiv.textContent = `🎊 Поздравляем! Ваш приз: ${winningPrize.emoji} ${winningPrize.text}`;
+                        resultDiv.classList.add('show');
+                        btn.textContent = 'Уже сыграно ✅';
+                    }
+                }, 800 + index * 400);
+            };
+
+            // Анимация случайных emoji во время вращения
+            const spinInterval = setInterval(() => {
+                reels.forEach(reel => {
+                    reel.textContent = reelEmojis[Math.floor(Math.random() * reelEmojis.length)];
+                });
+            }, 100);
+
+            // Останавливаем барабаны по очереди с выигрышным emoji
+            stopReel(0, winningPrize.emoji);
+            stopReel(1, winningPrize.emoji);
+            stopReel(2, winningPrize.emoji);
+
+            // Очищаем интервал после завершения
+            setTimeout(() => clearInterval(spinInterval), 2000);
+        }
+    </script>
 
 </body>
 </html>
