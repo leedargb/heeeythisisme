@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>English with Fun | Репетитор английского</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet"> 
     <style>
         :root {
             --primary: #6C63FF;
@@ -295,7 +295,11 @@
 
     <nav>
         <div class="logo">English<span style="color:var(--secondary)">Fun</span></div>
-        <a href="#contact" class="cta-btn">Записаться</a>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <a href="#about" class="cta-btn">Обо мне</a>
+            <a href="#services" class="cta-btn">Услуги</a>
+            <a href="#contact" class="cta-btn">Записаться</a>
+        </div>
     </nav>
 
     <section class="hero">
@@ -311,7 +315,7 @@
         </div>
     </section>
 
-    <section class="features">
+    <section id="services" class="features">
         <div class="features-grid">
             <div class="feature-card">
                 <span class="icon">🗣️</span>
@@ -331,7 +335,7 @@
         </div>
     </section>
 
-    <section class="about">
+    <section id="about" class="about">
         <h2>Почему выбирают меня?</h2>
         <p>Я верю, что язык — это инструмент, а не набор правил. Моя задача — дать вам этот инструмент в руки и показать, как им пользоваться с удовольствием.</p>
         
