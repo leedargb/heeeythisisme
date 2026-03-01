@@ -7,9 +7,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #6C63FF; /* Яркий фиолетовый */
-            --secondary: #FF6584; /* Яркий розовый */
-            --accent: #FFD93D; /* Яркий желтый */
+            --primary: #6C63FF;
+            --secondary: #FF6584;
+            --accent: #FFD93D;
             --dark: #2D3436;
             --light: #F9F9F9;
             --white: #FFFFFF;
@@ -29,7 +29,6 @@
             overflow-x: hidden;
         }
 
-        /* --- Header / Nav --- */
         nav {
             display: flex;
             justify-content: space-between;
@@ -68,18 +67,12 @@
             box-shadow: 0 6px 0 #D64663;
         }
 
-        .cta-btn:active {
-            transform: translateY(2px);
-            box-shadow: 0 2px 0 #D64663;
-        }
-
-        /* --- Hero Section --- */
         .hero {
             display: flex;
             align-items: center;
             justify-content: space-between;
             min-height: 100vh;
-            padding: 100px 5% 50px;
+            padding: 120px 5% 50px;
             background: linear-gradient(135deg, #fff 0%, #f0f0ff 100%);
             position: relative;
         }
@@ -125,23 +118,23 @@
             flex: 1;
             display: flex;
             justify-content: center;
-            position: relative;
+            align-items: center;
         }
 
-        /* Placeholder for photo */
         .photo-frame {
-            width: 400px;
-            height: 400px;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 1.5rem;
-            animation: morph 8s ease-in-out infinite;
+            width: 450px;
+            height: 450px;
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            overflow: hidden;
             box-shadow: 20px 20px 0px var(--accent);
+            animation: morph 8s ease-in-out infinite;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         @keyframes morph {
@@ -150,7 +143,6 @@
             100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
         }
 
-        /* --- Features --- */
         .features {
             padding: 80px 5%;
             background: var(--white);
@@ -160,11 +152,13 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .feature-card {
             background: var(--light);
-            padding: 30px;
+            padding: 40px 30px;
             border-radius: 20px;
             text-align: center;
             transition: transform 0.3s;
@@ -179,19 +173,22 @@
         }
 
         .icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
             display: block;
         }
 
-        /* --- About --- */
+        .feature-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
         .about {
-            padding: 80px 5%;
+            padding: 100px 5%;
             background: var(--primary);
             color: var(--white);
             text-align: center;
-            border-radius: 50px 50px 0 0;
-            margin-top: 50px;
         }
 
         .about h2 {
@@ -199,67 +196,81 @@
             margin-bottom: 20px;
         }
 
+        .about p {
+            max-width: 700px;
+            margin: 0 auto 50px;
+            font-size: 1.1rem;
+        }
+
         .stats {
             display: flex;
             justify-content: center;
-            gap: 50px;
-            margin-top: 40px;
+            gap: 80px;
             flex-wrap: wrap;
         }
 
         .stat-item h3 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: var(--accent);
+            margin-bottom: 10px;
         }
 
-        /* --- Contact --- */
         .contact {
-            padding: 80px 5%;
+            padding: 100px 5%;
             text-align: center;
+            background: linear-gradient(135deg, #fff 0%, #f0f0ff 100%);
         }
 
         .contact h2 {
             font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .contact > p {
+            font-size: 1.2rem;
             margin-bottom: 40px;
+            color: #666;
         }
 
         .social-links {
             display: flex;
             justify-content: center;
             gap: 20px;
+            flex-wrap: wrap;
         }
 
         .social-btn {
             display: inline-block;
-            padding: 15px 40px;
+            padding: 18px 45px;
             border-radius: 15px;
             text-decoration: none;
             font-weight: bold;
             color: white;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             transition: transform 0.2s;
+            box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+        }
+
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 0 rgba(0,0,0,0.2);
         }
 
         .tg { background: #0088cc; }
         .wa { background: #25D366; }
         .email { background: var(--dark); }
 
-        .social-btn:hover {
-            transform: scale(1.05);
-        }
-
         footer {
             text-align: center;
-            padding: 20px;
+            padding: 30px;
             background: var(--dark);
             color: #888;
             font-size: 0.9rem;
         }
 
-        /* Mobile Responsive */
         @media (max-width: 768px) {
             .hero {
-                flex-direction: column-reverse;
+                flex-direction: column;
                 text-align: center;
                 padding-top: 120px;
             }
@@ -269,10 +280,14 @@
             .photo-frame {
                 width: 300px;
                 height: 300px;
-                margin-bottom: 40px;
+                margin: 40px 0;
             }
 
-            .stats { gap: 20px; }
+            .stats { gap: 40px; }
+            
+            .hero-text, .about p {
+                max-width: 100%;
+            }
         }
     </style>
 </head>
@@ -291,8 +306,8 @@
         </div>
         <div class="hero-image">
             <div class="photo-frame">
-                <img src="images/me.jpg">
-                       </div>
+                <img src="https://ru.files.fm/u/n8yatyf79s?ak=3d40c" alt="Анна - репетитор английского">
+            </div>
         </div>
     </section>
 
@@ -318,7 +333,7 @@
 
     <section class="about">
         <h2>Почему выбирают меня?</h2>
-        <p style="max-width: 600px; margin: 0 auto;">Я верю, что язык — это инструмент, а не набор правил. Моя задача — дать вам этот инструмент в руки и показать, как им пользоваться с удовольствием.</p>
+        <p>Я верю, что язык — это инструмент, а не набор правил. Моя задача — дать вам этот инструмент в руки и показать, как им пользоваться с удовольствием.</p>
         
         <div class="stats">
             <div class="stat-item">
@@ -338,7 +353,7 @@
 
     <section id="contact" class="contact">
         <h2>Готовы начать?</h2>
-        <p style="margin-bottom: 30px;">Первый пробный урок (30 минут) — бесплатно!</p>
+        <p>Первый пробный урок (30 минут) — бесплатно!</p>
         
         <div class="social-links">
             <a href="#" class="social-btn tg">Telegram</a>
